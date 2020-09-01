@@ -8,13 +8,9 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,20 +82,13 @@ public class TaskController {
 		return "redirect:/";
 	}
 
-	/*
-	 * @RequestMapping(value = "save", method = RequestMethod.POST) public String
-	 * save(@Valid Task task, Errors errors, Model model) { if (null != errors &&
-	 * errors.getErrorCount() > 0) { return "redirect:/"; } else {
-	 * 
-	 * return "index"; } }
-	 */
-	
-	  public String save(Task task) { taskService.saveTask(task);
-	  
-	  return "redirect:/";
-	
+	@RequestMapping(value = "save", method = RequestMethod.POST)
+	public String save(Task task) {
+		taskService.saveTask(task);
+
+		return "redirect:/";
 	}
- 
+
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String deleteTask(@RequestParam("id") int taskId, Model model) {
 		Task task = taskService.get(taskId);
