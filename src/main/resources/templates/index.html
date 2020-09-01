@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+<title>ホームページ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/index.js"></script>
+<link rel="stylesheet" href="/css/index.css" />
+
+</head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+	<h1>
+		<a> 未完了タスク </a> <a href="/add" class="btn btn-secondary">タスク登録</a>
+	</h1>
+
+	<th:block th:if="${#lists.isEmpty(listTasksUnComplete)}">
+		<div class="alert alert-info">
+			<strong>お知らせ!</strong> 未完了タスクがありません!
+		</div>
+	</th:block>
+	<th:block th:unless="${#lists.isEmpty(listTasksUnComplete)}">
+		<div class="tableFixHead">
+			<table>
+				<thead>
+					<tr>
+						<th>タイトル</th>
+						<th>予定日</th>
+						<th>完了日</th>
+						<th>優先順位</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="task : ${listTasksUnComplete}">
+						<td class="col-xs-3" th:text="${task.title}"
+							th:onclick="'redirectEdit(\'' +${task.id} +'\')'"></td>
+						<td class="col-xs-3" th:text="${task.scheduled_date} "
+							th:onclick="'redirectEdit(\'' +${task.id} +'\')'"></td>
+						<td class="col-xs-3" th:text="${task.completed_date}"
+							th:onclick="'redirectEdit(\'' +${task.id} +'\')'"></td>
+						<td class="col-xs-3" th:switch="${task.priority}"
+							th:onclick="'redirectEdit(\'' +${task.id} +'\')'"><label
+							th:case="1">高い</label> <label th:case="2">中</label> <label
+							th:case="3">正常</label> <label th:case="4">低い</label></td>
+
+						<td class="col-xs-3"><input type="checkbox"
+							th:onclick="'redirectUpdate(\'' +${task.id} +'\')'"></td>
+						<td class="col-xs-3"><a
+							th:href="@{/delete?id={id}(id=${task.id})}"
+							class="btn fa fa-trash" id="submit1" type="submit1"></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</th:block>
+	<h1>完了タスク</h1>
+
+	<th:block th:if="${#lists.isEmpty(listTasksComplete)}">
+		<div class="alert alert-info">
+			<strong>お知らせ!</strong> 完了タスクがありません
+		</div>
+	</th:block>
+	<th:block th:unless="${#lists.isEmpty(listTasksComplete)}">
+		<div class="tableFixHead">
+			<table>
+				<thead>
+					<tr>
+						<th>タイトル</th>
+						<th>予定日</th>
+						<th>完了日</th>
+						<th>優先順位</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="task : ${listTasksComplete}">
+						<td class="col-xs-3" th:text="${task.title}"
+							th:onclick="'redirectEdit(\'' +${task.id} +'\')'"></td>
+						<td class="col-xs-3" th:text="${task.scheduled_date} "
+							th:onclick="'redirectEdit(\'' +${task.id} +'\')'"></td>
+						<td class="col-xs-3" th:text="${task.completed_date}"
+							th:onclick="'redirectEdit(\'' +${task.id} +'\')'"></td>
+
+						<td class="col-xs-3" th:switch="${task.priority}"
+							th:onclick="'redirectEdit(\'' +${task.id} +'\')'"><label
+							th:case="1">高い</label> <label th:case="2">中</label> <label
+							th:case="3">正常</label> <label th:case="4">低い</label></td>
+						<td class="col-xs-3"><input type="checkbox"
+							th:onclick="'redirectUncomplete(\'' +${task.id} +'\')'"
+							checked="checked"></td>
+						<td class="col-xs-3"><a
+							th:href="@{/delete?id={id}(id=${task.id})}"
+							class="btn fa fa-trash" id="submit" type="submit"> </a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</th:block>
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+<meta charset="UTF-8">
+<title>タスク登録</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script type="text/javascript">
+$(document).ready(
+		function() {
+			var dateInput = $('input[name="scheduled_date"]'); // Our date input has the name "date"
+			var container = $('.bootstrap-iso form').length > 0 ? $(
+					'.bootstrap-iso form').parent() : 'body';
+			dateInput.datepicker({
+				format : 'yyyy/mm/dd',
+				container : container,
+				todayHighlight : true,
+				autoclose : true
+			// <-- THIS WORKS
+			});
+
+		});
+
+$(document).ready(
+		function() {
+			var dateInput = $('input[name="complete_date"]'); // Our date input has the name "date"
+			var container = $('.bootstrap-iso form').length > 0 ? $(
+					'.bootstrap-iso form').parent() : 'body';
+			dateInput.datepicker({
+				format : 'yyyy/mm/dd',
+				container : container,
+				todayHighlight : true,
+				autoclose : true
+			});
+
+			
+		});
+	$(document).ready(function() {
+
+		$('#task-form').validate({
+			rules : {
+				title : 'required',
+				description : 'required',
+				scheduled_date : {
+					required : true
+				},
+				completed_date : {
+					required : true
+				}
+			},
+			messages : {
+				title : 'タイトルは空白にできません!',
+				description : '内容日は空白にできません!',
+				scheduled_date : '予定日は空白にできません!',
+				completed_date : '完了日は空白にできません!'
+			},
+
+			submitHandler : function(form) {
+				console.log("summit")
+				var r = confirm("タスクを登録します。本当によろしいですか？");
+				if (r == true) {
+					form.submit();
+				}
+			}
+		});
+
+	});
+</script>
+</head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+	<div class="col-3"></div>
+
+	<div class="container col-6">
+		<h1>タスク登録</h1>
+		<form id="task-form" th:object="${task}" th:action="@{save}"
+			action="#" method="post">
+			<input type="hidden" th:field="*{id}">
+			<div>
+				<label th:text="タイトル" th:for="title"></label>
+				 <input type="text" th:field="*{title}" class="form-control" />
+					
+			</div>
+			<div>
+				<label th:text="タスクの内容" th:for="description"></label>
+				<textarea th:field="*{description}" class="form-control" /></textarea>
+			
+			</div>
+			<div style="clear: both; display: block; height: 10px"></div>
+			<div>
+				<label th:text="予定日" th:for="scheduled_date"></label> <input
+					type="date" th:field="*{scheduled_date}" class="form-control" />
+			</div>
+			<div style="clear: both; display: block; height: 10px"></div>
+			<div>
+				<label th:text="完了日" th:for="completed_date"></label> <input
+					type="date" th:field="*{completed_date}" class="form-control" />
+			</div>
+
+			<div>
+				<label th:text="優先順位" th:for="priority"></label> <select
+					class="form-control" th:field="*{priority}" name="priority">
+					<option value="1">高い</option>
+					<option value="2">中</option>
+					<option value="3">正常</option>
+					<option value="4">低い</option>
+				</select>
+			</div>
+			<div style="clear: both; display: block; height: 10px"></div>
+			<div style="clear: both; display: block; height: 10px"></div>
+			<div style="clear: both; display: block; height: 10px"></div>
+			<input type="submit" class="btn btn-secondary" value="登録" />
+		</form>
+	</div>
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
