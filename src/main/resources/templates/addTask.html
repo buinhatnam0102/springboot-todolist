@@ -15,35 +15,21 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 <script type="text/javascript">
-$(document).ready(
-		function() {
-			var dateInput = $('input[name="scheduled_date"]'); // Our date input has the name "date"
-			var container = $('.bootstrap-iso form').length > 0 ? $(
-					'.bootstrap-iso form').parent() : 'body';
-			dateInput.datepicker({
-				format : 'yyyy/mm/dd',
-				container : container,
-				todayHighlight : true,
-				autoclose : true
-			// <-- THIS WORKS
+	$(document).ready(
+			function() {
+				var dateInput = $('input[name="scheduled_date"]'); // Our date input has the name "date"
+				var container = $('.bootstrap-iso form').length > 0 ? $(
+						'.bootstrap-iso form').parent() : 'body';
+				dateInput.datepicker({
+					format : 'yyyy/mm/dd',
+					container : container,
+					todayHighlight : true,
+					autoclose : true
+
+				});
+
 			});
 
-		});
-
-$(document).ready(
-		function() {
-			var dateInput = $('input[name="complete_date"]'); // Our date input has the name "date"
-			var container = $('.bootstrap-iso form').length > 0 ? $(
-					'.bootstrap-iso form').parent() : 'body';
-			dateInput.datepicker({
-				format : 'yyyy/mm/dd',
-				container : container,
-				todayHighlight : true,
-				autoclose : true
-			});
-
-			
-		});
 	$(document).ready(function() {
 
 		$('#task-form').validate({
@@ -86,14 +72,14 @@ $(document).ready(
 			action="#" method="post">
 			<input type="hidden" th:field="*{id}">
 			<div>
-				<label th:text="タイトル" th:for="title"></label>
-				 <input type="text" th:field="*{title}" class="form-control" />
-					
+				<label th:text="タイトル" th:for="title"></label> <input type="text"
+					th:field="*{title}" class="form-control" />
+
 			</div>
 			<div>
 				<label th:text="タスクの内容" th:for="description"></label>
 				<textarea th:field="*{description}" class="form-control" /></textarea>
-			
+
 			</div>
 			<div style="clear: both; display: block; height: 10px"></div>
 			<div>
@@ -118,7 +104,7 @@ $(document).ready(
 			<div style="clear: both; display: block; height: 10px"></div>
 			<div style="clear: both; display: block; height: 10px"></div>
 			<div style="clear: both; display: block; height: 10px"></div>
-			<input type="submit" class="btn btn-secondary" value="登録" />
+			<input type="submit" class="btn btn-primary" value="登録" />
 		</form>
 	</div>
 

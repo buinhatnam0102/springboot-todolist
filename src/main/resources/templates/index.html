@@ -20,10 +20,11 @@
 </head>
 <body>
 	<nav th:replace="layout :: header"></nav>
+	
 	<h1>
-		<a> 未完了タスク </a> <a href="/add" class="btn btn-secondary">タスク登録</a>
+		<a> 未完了タスク </a> <a href="/add" class="btn btn-primary">タスク登録</a>
 	</h1>
-
+<span class="border border-primary">
 	<th:block th:if="${#lists.isEmpty(listTasksUnComplete)}">
 		<div class="alert alert-info">
 			<strong>お知らせ!</strong> 未完了タスクがありません!
@@ -45,7 +46,7 @@
 				<tbody>
 					<tr th:each="task : ${listTasksUnComplete}">
 						<td class="col-xs-3" th:text="${task.title}"
-							th:onclick="'redirectEdit(\'' +${task.id} +'\')'"></td>
+							th:onclick="'redirectDetail(\'' +${task.id} +'\')'"></td>
 						<td class="col-xs-3" th:text="${task.scheduled_date} "
 							th:onclick="'redirectEdit(\'' +${task.id} +'\')'"></td>
 						<td class="col-xs-3" th:text="${task.completed_date}"
@@ -64,9 +65,10 @@
 				</tbody>
 			</table>
 		</div>
-	</th:block>
+	</th:block></span>
+	
 	<h1>完了タスク</h1>
-
+<span class="border border-primary">
 	<th:block th:if="${#lists.isEmpty(listTasksComplete)}">
 		<div class="alert alert-info">
 			<strong>お知らせ!</strong> 完了タスクがありません
@@ -110,7 +112,7 @@
 		</div>
 
 	</th:block>
-
+</span>
 	<footer th:replace="layout :: footer"></footer>
 </body>
 </html>

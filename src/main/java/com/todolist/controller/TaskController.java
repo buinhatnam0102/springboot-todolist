@@ -8,9 +8,11 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,14 +31,13 @@ public class TaskController {
 
 	@RequestMapping("/")
 	public String index(Model model) {
-		
-	
+
 		List<Task> tasks = taskService.getAllTask();
 		listComplete = new ArrayList<>();
 		listUnComplete = new ArrayList<>();
 		for (Task task : tasks) {
 			if (task.getDelete_flag() == 0) {
-				if (task.getIs_completed()== 1) {
+				if (task.getIs_completed() == 1) {
 					listComplete.add(task);
 				} else {
 					listUnComplete.add(task);
@@ -74,6 +75,7 @@ public class TaskController {
 		return "redirect:/";
 
 	}
+
 	@RequestMapping(value = "/uncomplete", method = RequestMethod.GET)
 	public String uncomplete(@RequestParam("id") int taskId, Model model) {
 		Task task = taskService.get(taskId);
@@ -87,6 +89,7 @@ public class TaskController {
 		taskService.saveTask(task);
 
 		return "redirect:/";
+
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
@@ -143,4 +146,3 @@ public class TaskController {
 		});
 	}
 }
-

@@ -1,6 +1,9 @@
 function redirectEdit(id) {
 		window.location.href = "/edit?id=" + id;
 	}
+	function redirectDetail(id) {
+		window.location.href = "/detail?id=" + id;
+	}
 	function redirectUpdate(id) {
 		window.location.href = "/complete?id=" + id;
 	}
