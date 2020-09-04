@@ -46,7 +46,7 @@
 				<tbody>
 					<tr th:each="task : ${listTasksUnComplete}">
 						<td class="col-xs-3" th:text="${task.title}"
-							th:onclick="'redirectDetail(\'' +${task.id} +'\')'"></td>
+							th:onclick="'redirectEdit(\'' +${task.id} +'\')'"></td>
 						<td class="col-xs-3" th:text="${task.scheduled_date} "
 							th:onclick="'redirectEdit(\'' +${task.id} +'\')'"></td>
 						<td class="col-xs-3" th:text="${task.completed_date}"

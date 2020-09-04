@@ -36,7 +36,7 @@
 
 <body>
 	<nav th:fragment="header" class="navbar navbar-dark bg-primary">
-		<a class="navbar-brand" href="#">ToDoリスト</a>
+		<a class="navbar-brand" th:href="@{/}">ToDoリスト</a>
 		<h3 th:inline="text" >こんにちは！ [[${#httpServletRequest.remoteUser}]]　様</h3>
 	<form th:action="@{/logout}" method="post">
     <input type="submit"class="btn btn-outline-dark" value="ログアウト" />
